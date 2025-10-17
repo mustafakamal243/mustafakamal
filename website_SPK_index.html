@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPK Bibit Udang Vaname - Metode MAUT</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #007bff, #00bcd4);
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 900px;
+      background-color: white;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 25px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .hasil {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .hasil table {
+      margin-top: 15px;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sistem Pendukung Keputusan Bibit Udang Vaname</h1>
+    <p>Metode MAUT (Multi Attribute Utility Theory)</p>
+  </header>
+
+  <main>
+    <h2>Input Nilai Alternatif Bibit</h2>
+
+    <p>Masukkan nilai setiap bibit (1–10) untuk tiap kriteria:</p>
+
+    <table id="tabelInput">
+      <thead>
+        <tr>
+          <th>Alternatif</th>
+          <th>Warna Tubuh</th>
+          <th>Pergerakan Aktif</th>
+          <th>Bentuk Tubuh Normal</th>
+          <th>Usus Penuh</th>
+          <th>Ekor Mengembang</th>
+          <th>Mata Cerah</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bibit Udang Vannamei F1 WAS </td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="7"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+        </tr>
+        <tr>
+          <td>Bibit Udang Vannamei F1 PAL</td>
+          <td><input type="number" min="1" max="10" value="7"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="7"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+        </tr>
+        <tr>
+          <td>Bibit Udang Vaname SPF Global Gen</td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+          <td><input type="number" min="1" max="10" value="8"></td>
+          <td><input type="number" min="1" max="10" value="9"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Bobot Kriteria</h2>
+    <p>Masukkan bobot (total harus 1.0):</p>
+
+    <table id="tabelBobot">
+      <tr><th>Warna Tubuh</th><td><input type="number" step="0.01" value="0.15"></td></tr>
+      <tr><th>Pergerakan Aktif</th><td><input type="number" step="0.01" value="0.2"></td></tr>
+      <tr><th>Bentuk Tubuh Normal</th><td><input type="number" step="0.01" value="0.15"></td></tr>
+      <tr><th>Usus Penuh</th><td><input type="number" step="0.01" value="0.15"></td></tr>
+      <tr><th>Ekor Mengembang</th><td><input type="number" step="0.01" value="0.15"></td></tr>
+      <tr><th>Mata Cerah</th><td><input type="number" step="0.01" value="0.2"></td></tr>
+    </table>
+
+    <button onclick="hitungMAUT()">Hitung MAUT</button>
+
+    <div class="hasil" id="hasil"></div>
+  </main>
+
+  <footer>
+    © 2025 Sistem Pendukung Keputusan Bibit Udang Vaname | Metode MAUT | Dibuat oleh Mustafa Kamal
+  </footer>
+
+  <script>
+    function hitungMAUT() {
+      const tabelInput = document.querySelectorAll('#tabelInput tbody tr');
+      const tabelBobot = document.querySelectorAll('#tabelBobot input');
+      const hasilDiv = document.getElementById('hasil');
+
+      // Ambil bobot
+      const bobot = Array.from(tabelBobot).map(b => parseFloat(b.value));
+      const totalBobot = bobot.reduce((a, b) => a + b, 0);
+      if (Math.abs(totalBobot - 1) > 0.01) {
+        alert('Total bobot harus = 1.0!');
+        return;
+      }
+
+      let hasil = [];
+
+      // Normalisasi dan hitung utilitas total
+      tabelInput.forEach(row => {
+        const nama = row.cells[0].innerText;
+        const nilai = Array.from(row.querySelectorAll('input')).map(i => parseFloat(i.value));
+        const skor = nilai.reduce((sum, val, i) => sum + (val / 10) * bobot[i], 0);
+        hasil.push({ nama, skor });
+      });
+
+      // Urutkan dari terbesar ke terkecil
+      hasil.sort((a, b) => b.skor - a.skor);
+
+      // Tampilkan hasil
+      let html = `<h2>Hasil Perhitungan MAUT</h2>`;
+      html += `<table><tr><th>Peringkat</th><th>Alternatif</th><th>Nilai Utilitas</th></tr>`;
+      hasil.forEach((r, i) => {
+        html += `<tr><td>${i + 1}</td><td>${r.nama}</td><td>${r.skor.toFixed(3)}</td></tr>`;
+      });
+      html += `</table>`;
+
+      html += `<p><strong>Rekomendasi:</strong> ${hasil[0].nama} adalah bibit udang vaname paling unggul 🦐✅</p>`;
+
+      hasilDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html> 
